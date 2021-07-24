@@ -1,0 +1,22 @@
+sudo: required
+services: 
+  - docker
+
+before_install:
+  - docker build -t uditmanav/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  # -- --coverage is used to make npm exit after completing tests
+  - docker run uditmanav/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t uditmanav/multi-client ./client
+  - docker build -t uditmanav/multi-nginx ./nginx
+  - docker build -t uditmanav/multi-worker ./worker
+  - docker build -t uditmanav/multi-server ./server
+  # login to dockerhub via docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push uditmanav/multi-client 
+  - docker push uditmanav/multi-nginx
+  - docker push uditmanav/multi-worker
+  - docker push uditmanav/multi-server
