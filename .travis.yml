@@ -7,7 +7,8 @@ before_install:
 
 script:
   # -- --coverage is used to make npm exit after completing tests
-  - docker run uditmanav/react-test npm test -- --coverage
+  # - docker run uditmanav/react-test npm test -- --coverage
+  - docker run -e CI=true uditmanav/react-test npm run test
 
 after_success:
   - docker build -t uditmanav/multi-client ./client
