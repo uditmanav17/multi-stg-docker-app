@@ -7,6 +7,7 @@ services:
 branches:
   only:
     - master
+    - main
 
 before_install:
   - docker build -t uditmanav/react-test -f ./client/Dockerfile.dev ./client
