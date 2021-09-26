@@ -22,7 +22,7 @@ services:
             - REDIS_HOST=redis
             - REDIS_PORT=6379
             - PGUSER=postgres
-            # this is service name
+            # PGHOST is service name
             - PGHOST=postgres
             - PGDATABASE=postgres
             - PGPASSWORD=postgres_password

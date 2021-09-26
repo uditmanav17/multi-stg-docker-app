@@ -1,0 +1,43 @@
+// lectures 169-
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [
+        {
+            "name": "nginx",
+            "image": "uditmanav/multi-nginx",
+            // hostname is service name in Dockerfile
+            "hostname": "nginx",
+            // hostname is service name in Dockerfile
+            "essential": true,
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ],
+            // used to let ECS know where to redirect traffic, should be name of container
+            "links": [
+                "client",
+                "server"
+            ]
+        },
+        {
+            "name": "client",
+            "image": "uditmanav/multi-client",
+            "hostname": "client",
+            "essential": false
+        },
+        {
+            "name": "server",
+            "image": "uditmanav/multi-server",
+            "hostname": "api",
+            "essential": false
+        },
+        {
+            "name": "worker",
+            "image": "uditmanav/multi-worker",
+            "hostname": "worker",
+            "essential": false
+        }
+    ]
+}
